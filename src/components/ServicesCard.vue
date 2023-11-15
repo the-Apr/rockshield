@@ -8,7 +8,6 @@
         <h3>{{service.title}}</h3>
         <h2>{{service.catchPhrase}}</h2>
         <p>{{service.body}}</p>
-
       </div>
       <div class="action">
         <router-link :to="{}">Learn more</router-link>
@@ -31,7 +30,7 @@ export default {
 .service-wrap {
   @apply mb-10 flex flex-col gap-8 w-full h-full;
 
-  @screen md {
+  @screen lg {
     @apply flex-row my-20 gap-14;
   }
 
@@ -51,7 +50,7 @@ export default {
     }
   }
 
-  @screen md {
+  @screen lg {
     .text-box {
       max-width:  400px !important;
     }
@@ -61,15 +60,19 @@ export default {
     @apply w-full order-2;
     background: #EBFCF1;
 
-    @screen md {
+    @screen lg {
       @apply w-1/2 order-1
     }
   }
 
   .right {
-    @apply w-full flex flex-col items-center justify-center gap-10 py-10 order-1;
+    @apply w-full flex flex-col items-center justify-center gap-10 py-6 px-4 order-1;
 
     @screen md {
+      @apply py-10 px-14;
+    }
+
+    @screen lg {
       @apply w-1/2 order-2;
     }
 
@@ -87,13 +90,19 @@ export default {
       // }
     
       h3 {
-        @apply text-2xl;
+        @apply text-xl;
         letter-spacing: 6.24px;
         color: #D9D9D9;
+        @screen md {
+          @apply text-2xl
+        }
       }
       h2 {
-        font-size: 45px;
+        font-size: 25px;
         font-weight: 700;
+        @screen md {
+          font-size: 44px;
+        }
       }
       p {
         font-size: 16px;
@@ -103,7 +112,11 @@ export default {
     }
 
     .action {
-      @apply flex gap-6 items-center;
+      @apply flex gap-3 items-center self-start ml-1;
+
+      @screen md {
+        @apply ml-4 gap-6;
+      }
     }
   }
 }

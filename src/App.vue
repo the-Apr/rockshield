@@ -1,17 +1,27 @@
 <template>
 <div class="app">
   <navigation />
-  <router-view/>
+  <transition name="fade" mode="out-in">
+    <router-view />
+  </transition>
+
+  <footer-note />
 </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation.vue'
+import FooterNote from '@/components/FooterNote.vue'
+
 export default {
   components: {
-    Navigation
-  }
-  
+    Navigation,
+    FooterNote,
+  },
+
+   mounted() {
+    console.log('Footer component mounted');
+  },
 }
 </script>
 
@@ -29,7 +39,16 @@ export default {
 }
 
 .app {
+ max-width: 100%;
+ overflow-x: hidden;
+}
 
+fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 

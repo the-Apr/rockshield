@@ -10,8 +10,8 @@
       <ul v-show="!mobile">
         <router-link class="link" :to="{}">Products</router-link>
         <router-link class="link" :to="{}">Media</router-link>
-        <router-link class="link" :to="{}">About Us</router-link>
-        <router-link v-show="!user" class="link" :to="{}">Help</router-link>
+        <router-link class="link" :to="{name: 'about'}">About Us</router-link>
+        <router-link class="link" :to="{}">Help</router-link>
       </ul>
     </div>
     <div class="nav-button" v-show="!mobile">
@@ -30,7 +30,7 @@
       <router-link class="link" :to="{}">Home</router-link>
       <router-link class="link" :to="{}">Blogs</router-link>
       <router-link class="link" to="#">Create Post</router-link>
-      <router-link v-show="!user" class="link" :to="{}">Login/Register</router-link>
+      <router-link class="link" :to="{}">Login/Register</router-link>
     </ul>
   </transition>
 </header> 
@@ -85,7 +85,7 @@ header {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) ;
 
   .nav-wrap {
-    @apply flex items-center justify-between px-8 py-3;
+    @apply flex items-center justify-between px-4 py-3;
 
     @screen md{
       @apply py-6 px-16
