@@ -22,10 +22,19 @@ export default {
 
 <style lang="scss" scoped>
 .drives-card {
-  @apply grid grid-cols-2 gap-4;
+  @apply grid grid-cols-1 gap-4;
+
+  @screen lg {
+    @apply grid-cols-2
+  }
 
   .card {
-    @apply px-10 py-12 flex flex-row gap-10 h-[260px] items-start shadow-[0px_16px_24px_0px_rgba(18,156,234,0.07)] rounded-3xl;
+    @apply px-8 py-10 flex flex-row gap-8 h-[260px] items-start shadow-[0px_16px_24px_0px_rgba(18,156,234,0.07)] rounded-3xl;
+    border: 1px solid #91DBF9;
+
+    @screen lg{
+      @apply px-10 py-12 gap-10
+    }
 
     .left {
       @apply p-2;
@@ -34,7 +43,7 @@ export default {
       // background: #91DBF9;
 
       img{
-        @apply w-8 h-8 p-1;
+        @apply w-12 h-12 p-1;
         border-radius: 50%;
         background: #91DBF9;
       }

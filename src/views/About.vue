@@ -107,15 +107,30 @@ export default {
 
 <style lang="scss" scoped>
 .about {
-  @apply mt-24 px-20;
+  @apply px-2 mx-1 mt-16 flex flex-col;
+
+  @screen sm {
+    @apply mt-20 px-12 mx-4
+  }
+  @screen lg {
+    @apply mt-24 px-20 mx-8
+  }
 
   .first-mssg {
-    @apply flex flex-col justify-center items-center gap-28;
+    @apply flex flex-col justify-center items-center gap-20;
+
+    @screen lg {
+      @apply gap-28
+    }
 
     .message {
       @apply flex flex-col items-center gap-4;
       h2{
-        @apply w-[726px] text-center text-[45px] font-normal leading-[normal]
+        @apply w-auto text-center text-3xl font-medium leading-[normal];
+
+        @screen lg {
+          @apply w-[726px] text-center text-[45px] font-normal leading-[normal]
+        }
       }
       p{
         @apply w-[479px] text-center text-sm font-normal leading-5 tracking-[0.035px]
@@ -123,7 +138,11 @@ export default {
     }
 
     .image {
-      @apply grid grid-cols-3 gap-4;
+      @apply grid grid-cols-1 gap-y-3;
+
+      @screen md {
+        @apply grid-cols-3 gap-4;
+      }
 
       img {
         @apply object-cover rounded-xl;
@@ -132,17 +151,25 @@ export default {
     }
 
     .v-mission{
-      @apply flex flex-row gap-16 mx-20;
+      @apply flex flex-col gap-10 mx-2;
+
+      @screen lg {
+        @apply flex-row gap-16 mx-20;
+      }
 
       .wrap {
-        @apply mb-10 flex flex-col items-center gap-14;
+        @apply flex flex-col items-center gap-8;
+
+        @screen lg{
+          @apply mb-10 items-center gap-14
+        }
 
         .head {
           @apply w-[157px] h-4;
           background: rgba(21, 207, 116, 0.36);
 
           h2{
-            @apply text-[32px] not-italic font-normal leading-10 tracking-[8.32px] uppercase;
+            @apply text-[32px] font-normal leading-10 tracking-[8.32px] uppercase;
             
           }
         }
@@ -163,25 +190,41 @@ export default {
   }
 
   .our-story {
-    @apply flex flex-col my-28 mx-10 gap-10;
+    @apply flex flex-col my-16 mx-4 gap-8;
+
+    @screen lg {
+      @apply my-28 mx-10 gap-10
+    }
 
     h2{
       @apply text-4xl font-semibold leading-[44px] text-start;
     }
 
     .story-body {
-      @apply flex flex-row gap-14 items-center;
+      @apply flex flex-col gap-8 items-center;
+
+      @screen lg {
+        @apply flex-row gap-14 items-center justify-between;
+      }
 
       .story-text {
         @apply text-start;
 
         p{
-          @apply w-[595px] text-base not-italic font-normal leading-6 tracking-[0.024px] mb-2;
+          @apply w-full text-base font-normal leading-6 tracking-[0.024px] mb-3;
+
+          @screen lg {
+            @apply  w-[600px] mb-2
+          }
         }
       }
 
       .image {
         @apply object-cover;
+
+        img {
+          @apply w-full h-[486px] shrink-0;
+        }
 
       }
     }

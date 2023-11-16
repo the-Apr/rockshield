@@ -112,10 +112,15 @@ export default {
     }
 
     .action {
-      @apply flex gap-3 items-center self-start ml-1;
+      @apply flex gap-3 items-center  ml-1;
+      
 
       @screen md {
         @apply ml-4 gap-6;
+      }
+
+      @screen lg{
+        @apply self-start;
       }
     }
   }

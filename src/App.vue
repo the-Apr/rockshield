@@ -1,8 +1,10 @@
 <template>
 <div class="app">
   <navigation />
-  <transition name="fade" mode="out-in">
-    <router-view />
+  <transition name="scale-fade" mode="out-in" >
+    <div v-if="showContent">
+     <router-view />
+    </div>
   </transition>
 
   <footer-note />
@@ -19,9 +21,31 @@ export default {
     FooterNote,
   },
 
-   mounted() {
-    console.log('Footer component mounted');
+  data() {
+    return {
+      showContent: false,
+    }
   },
+
+  mounted() {
+    this.showContent = true;
+
+    
+  },
+
+  beforeRouteLeave(_to, _from, next) {
+   this.routerViewKey += 1;
+    next();
+    
+
+    // setTimeout(() => next(), 500); 
+  },
+
+  // beforeRouteEnter(_to, _from, next) {
+  //   this.showContent = true;
+  //   console.log(this.showContent)
+  //   next();
+  // },
 }
 </script>
 
@@ -43,13 +67,27 @@ export default {
  overflow-x: hidden;
 }
 
-fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s;
+/* .fade-enter-active, 
+.fade-leave-active {
+  transition: opacity 0.8s,
+  transform 0.8s;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+} */
+
+.scale-fade-enter-active,
+.scale-fade-leave-active {
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.scale-fade-enter-from {
+  /* transform: scale(0.8); */
+  transform: translateY(20px);
   opacity: 0;
 }
-
 
 </style>

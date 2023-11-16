@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="footer-note">
     <div class="footer-wrap">
       <div class="logo">
         <router-link class="link" :to="{name: 'home'}">
@@ -31,14 +31,14 @@
           </div>
         </div>
 
-        <div class="right-reserved">
+        <div class="right-reserved hidden">
           <p>All rights reserved. © 2022 Rockshield Microfinance Bank Limited</p>
         </div>
       </div>
 
       <div class="contact">
         <div class="contact-details">
-          <h2>Connect</h2>
+          <h2 class="">Connect</h2>
           <div class="socials">
             <fa-icon :icon="['fab', 'instagram']" class="icon" />
             <fa-icon :icon="['fab', 'twitter']"  class="icon" />
@@ -55,19 +55,27 @@
 
         <div class="app-store"></div>
       </div>
+
+      <div class="right-reserved">
+          <p>All rights reserved. © 2022 Rockshield Microfinance Bank Limited</p>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'footer',
+  name: 'footerNote',
 }
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  @apply px-20 mt-32;
+.footer-note {
+  @apply px-10 mt-12;
+
+  @screen lg {
+    @apply px-14 mt-32
+  }
 
   p{
     @apply text-[#4C4C4C] 
@@ -80,12 +88,20 @@ export default {
   }
 
   .footer-wrap {
-    @apply grid grid-cols-4 gap-8 mb-6;
+    @apply grid grid-cols-1 gap-8 mb-6;
+
+    @screen lg {
+      @apply grid-cols-4
+    }
 
     .logo{
       img {
         @apply object-cover;
-        height: 45px;
+        height: 40px;
+
+        @screen lg{
+          height: 40px;
+        }
       }
     }
 
@@ -110,10 +126,18 @@ export default {
       }
     }
     .contact {
-      @apply flex flex-col gap-20;
+      @apply flex flex-col gap-10 col-span-2;
+
+      @screen lg {
+        @apply flex flex-col gap-20 col-span-1;
+      }
 
       .contact-details {
-        @apply flex flex-col gap-6 text-end;
+        @apply flex flex-col gap-3 text-end;
+
+        @screen lg {
+          @apply gap-6;
+        }
 
         .socials {
           @apply flex gap-6 flex-1 justify-end;
@@ -122,6 +146,12 @@ export default {
             @apply h-6
           }
         }
+      }
+    }
+
+    .right-reserved{
+      @screen lg {
+        @apply col-span-4
       }
     }
   }

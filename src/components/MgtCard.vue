@@ -72,19 +72,40 @@ export default {
   @apply p-2;
 
   .mgt-team{
-    @apply grid grid-cols-4 gap-4 gap-y-12 pb-20;
+    @apply grid grid-cols-2 gap-6 pb-10 w-full;
+
+    @screen lg {
+      @apply grid-cols-4 gap-4 gap-y-12 pb-20
+    }
 
     .team-card {
-      @apply rounded-2xl flex flex-col  shadow-[0px_16px_24px_0px_rgba(55,55,55,0.14)];
+      @apply rounded-2xl flex flex-col pb-6 shadow-[0px_16px_24px_0px_rgba(55,55,55,0.14)] w-full;
+
+      min-height: 200px;
+      max-height: 370px;
+      transition: .5s ease all;
+      
+      @screen sm{
+        min-height: 200px;
+        max-height: 400px;
+      }
+
+      &:hover {
+        transform: rotateZ(-1deg) scale(1.01);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
 
       .image {
         @apply object-cover w-full;
 
         img{
-          @apply block object-cover m-0 p-0 w-[302px] h-[418px];
+          @apply block object-cover w-full min-h-[218px] max-h-[318px];
           z-index: 1;
-        
-          border-radius: 8px 8px 0 0;
+          // border-radius: 8px 8px 0 0;
+
+          @screen lg {
+            @apply w-[302px] min-h-[218px];
+          }
         }
       }
 
