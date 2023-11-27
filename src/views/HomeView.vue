@@ -15,7 +15,7 @@
               </router-link>
             </div>
             <div class="create-account">
-              <nav-button/>
+              <nav-button>Create Account </nav-button>
             </div>
           </div>
           <div class="license">

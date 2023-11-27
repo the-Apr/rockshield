@@ -16,7 +16,7 @@
     </div>
     <div class="nav-button" v-show="!mobile" @click="toggleAccount">
       <router-link :to="{name: 'create-account'}">
-         <nav-button />
+        <nav-button>Create Account </nav-button>
       </router-link>
      
     </div>

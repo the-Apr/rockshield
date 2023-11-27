@@ -9,6 +9,9 @@ export default createStore({
   },
 
   mutations: {
+    TOGGLE_FORM () {
+      
+    }
 
   },
   actions: {

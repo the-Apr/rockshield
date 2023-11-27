@@ -2,9 +2,10 @@
 <transition name="account">
   <div class="create-acct" v-if="accountModalActive">
     <div class="acct-wrap">
-      <h3>Account Opening Form</h3>
-
       <form @submit.prevent="submitForm">
+        <loading v-show="loading" />
+
+        <h3>Account Opening Form</h3>
 
         <!-- bvn -->
         <div class="form-group">
@@ -62,11 +63,21 @@
           <input type="text" name="" id="resAddress" v-model="resAddress">
         </div>
 
+        <!-- country of residence -->
+        <div class="form-group">
+          <label for="resState">Country of Residence</label>
+          <select name="" id="resState" v-model="resCountry" @change="handleCountryChange">
+            <option value="" disabled selected>Select your country</option>
+            <option v-for="country in countries" :key="country.cioc" :value="country.alpha2Code">{{ country.name.common }}</option>
+          </select>
+        </div>
+
         <!-- state of residence -->
         <div class="form-group">
           <label for="resState">State of Residence</label>
           <select name="" id="resState" v-model="resState">
             <option value="" disabled selected>Select your state</option>
+
           </select>
         </div>
 
@@ -131,20 +142,25 @@
         </div>
 
         <!-- consent -->
-        <div class="form-group">
-          <span>
+        <div class="consent">
+         
             <input type="checkbox" id="chkTerms" v-model="chkTerms">
+            <label for="chkTerm">
             I agree I understand Rockshield MFB
             <a href="">privacy Policy</a>
              and consent to the processing of my personal Information for account opening
-          </span>
+             </label>
+          
         </div>
-
-        <p>Kindly fill out all input fields.</p>
+        
+        <div class="error-msg">
+        <fa-icon :icon="['fas', 'circle-exclamation']" style="color: #eb0f25;"  class="icon"/>
+        <p class="text-red-500">Kindly fill out all input fields.</p>
+        </div>
 
         <!-- submit button -->
         <div class="open-account">
-          <button type="submit">Open Account</button>
+          <nav-button class="btn">Open Account</nav-button>
         </div>
       </form>
     </div>
@@ -154,11 +170,23 @@
 </template>
 
 <script>
+import NavButton from '@/components/NavButton.vue';
+import Loading from '@/components/Loading.vue'
 import {mapState} from 'vuex';
+import { collection, doc, setDoc, db } from "firebase/firestore";
+import {uid} from 'uid';
+
 export default {
+
+  components: {
+    NavButton,
+    Loading
+  },
 
   data () {
     return {
+      countries: [],
+      loading: null,
       bvn: null,
       lastName: null,
       firstName: null,
@@ -167,6 +195,7 @@ export default {
       occupation: null,
       workAddress: null,
       resAddress: null,
+      resCountry: null,
       resState: null,
       resCity: null,
       maritalStatus: null,
@@ -180,8 +209,71 @@ export default {
     }
   },
 
-  computed : {
+  computed: {
     ...mapState(['accountModalActive'])
+  },
+
+   mounted() {
+    this.fetchCountries();
+  },
+
+  methods: {
+    fetchCountries() {
+      fetch("https://restcountries.com/v3.1/all")
+        .then((response) => response.json())
+        .then((data) => {
+          this.countries = data;
+          this.resCountry = data[0].alpha2Code; // Set an initial selected country
+          this.handleCountryChange();
+        });
+    },
+
+    handleCountryChange() {
+      this.selectedCountryData = this.countries.find((country) => this.selectedCountry === country.alpha2Code);
+    },
+
+    submitForm() {
+      console.log('submitted')
+      this.uploadForm()
+    },
+
+    async uploadForm() {
+      this.loading = true;
+
+      const customerCollection = collection(db, 'account-forms');
+      const newAccountDoc = doc(customerCollection);
+
+      const formData = {
+        invoiceId: uid(6),
+        bvn: this.bvn,
+        lastName: this.lastName,
+        firstName: this.firstName,
+        gender: this.gender,
+        email: this.email,
+        occupation: this.occupation,
+        workAddress: this.workAddress,
+        resAddress: this.resAddress,
+        resState: this.resState,
+        resCity: this.resCity,
+        maritalStatus: this.maritalStatus,
+        idType: this.idType,
+        idNum: this.idNum,
+        nokFullName: this.nokFullName,
+        nokPhoneNum: this.nokPhoneNum,
+        nokAddress: this.nokAddress,
+        otp: this.otp,
+        chkTerms: this.chkTerms
+      }; 
+
+      console.log(formData);
+      try {
+        await setDoc(newAccountDoc, formData);
+
+        this.loading = false;
+      } catch (error) {
+        console.error("Error uploading your information:", error);
+      }
+    }
   }
 }
 </script>
@@ -195,18 +287,26 @@ export default {
   //   display: none;
   // }
 
-  @apply mt-10 mx-20 flex items-center justify-center;
+  @apply mt-10 mx-6 flex items-center justify-center;
 
   @screen lg{
-    left: 90px;
+   @apply mx-20
   }
   
   .acct-wrap {
-    @apply relative p-14 w-2/3;
+    @apply relative p-4;
     // max-width: 700px;
     background-color: #141625;
     color: #fff;
     box-shadow:  10px 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    @screen lg {
+      @apply p-14
+    }
+
+    h3{
+      @apply mb-6 text-lg font-semibold tracking-wider
+    }
   }
 
   .form-group {
@@ -220,29 +320,54 @@ export default {
         color: red;
       }
     }
-  }
+    input,
+    select {
+      @apply w-full p-3  shadow-sm ring-1 ring-inset ring-gray-300 outline-none;
+      // border: 1px solid #ced4da;
+      background-color: #1e2139;
+      border-radius: 4px;
+      text-align: left;
 
+      &:focus {
+      @apply ring-2 ring-inset ring-indigo-600 transition ease-in-out duration-500;
+      }
 
-  input,
-  select {
-    @apply w-full p-3  shadow-sm ring-1 ring-inset ring-gray-300 outline-none;
-    // border: 1px solid #ced4da;
-    background-color: #1e2139;
-    border-radius: 4px;
-    text-align: left;
-
-    &:focus {
-     @apply ring-2 ring-inset ring-indigo-600 transition ease-in-out duration-500;
     }
-
   }
+
+
+ 
 
   input:read-only {
     background-color: #e9ecef;
     opacity: 1;
     color: #495057;
   }
-}  
+
+  .error-msg {
+    @apply flex gap-3 items-center my-2;
+  }
+
+  .consent {
+    @apply mb-4 text-start
+  }
+
+  .open-account {
+    @apply my-4 ;
+
+    .btn {
+      @apply w-full;
+
+      @screen md {
+        @apply w-auto
+      }
+    }
+  }
+} 
+
+form{
+  @apply max-w-[700px]
+}
 
 .account-enter-active,
 .account-leave-active {
@@ -253,6 +378,8 @@ export default {
 .account-leave-to {
   transform: translateX(-700px);
 }
+
+
 
 </style>
 

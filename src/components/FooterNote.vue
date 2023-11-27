@@ -71,10 +71,13 @@ export default {
 
 <style lang="scss" scoped>
 .footer-note {
-  @apply px-10 mt-12;
+  @apply px-10 py-5 mt-12;
+  border-top: 2px solid ;
+  border-top-color:rgba(197, 225, 249, 0.72);
+  border-width: 70%;
 
   @screen lg {
-    @apply px-14 mt-32
+    @apply px-14 py-10 mt-32
   }
 
   p{
