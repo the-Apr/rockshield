@@ -3,7 +3,7 @@
   <nav class="nav-wrap">
     <div class="branding">
       <router-link class="link" :to="{name: 'home'}">
-        <img src="../assets/RSPryLogoHor 1.png" alt="">
+        <img src="../assets/logo/RSPryLogoHor 1.png" alt="">
       </router-link>
     </div>
     <div class="nav-links">
@@ -14,8 +14,11 @@
         <router-link class="link" :to="{}">Help</router-link>
       </ul>
     </div>
-    <div class="nav-button" v-show="!mobile">
-      <nav-button />
+    <div class="nav-button" v-show="!mobile" @click="toggleAccount">
+      <router-link :to="{name: 'create-account'}">
+         <nav-button />
+      </router-link>
+     
     </div>
   </nav>
 
@@ -37,6 +40,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 import NavButton from '@/components/NavButton.vue'
 
 export default {
@@ -59,6 +63,10 @@ export default {
     this.checkScreen();
   },
 
+  computed : {
+  ...mapState(['accountModalActive'])
+},
+
   methods: {
     checkScreen() {
       this.windowWidth = window.innerWidth;
@@ -72,8 +80,12 @@ export default {
     },
 
     toggleNav() {
-    this.mobileNav = !this.mobileNav
-  },
+      this.mobileNav = !this.mobileNav
+    },
+
+    toggleAccount() {
+      this.accountModalActive = !this.accountModalActive;
+    }
   }
 } 
 </script>

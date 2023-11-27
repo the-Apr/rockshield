@@ -8,7 +8,7 @@
       </div>
       <div class="testimony lg:col-span-3 lg:col-end-6">
         <div class="star">
-          <img src="../assets/Star.png" alt="" v-for="index in 5" :key="index">
+          <img src="../assets/icons/Star.png" alt="" v-for="index in 5" :key="index">
         </div>
         <div class="body">
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, dolorem delectus voluptate modi reprehenderit earum. In maiores ab iste itaque officiis, eligendi at tenetur! Vel reprehenderit architecto quos dolores commodi?</p>
@@ -20,7 +20,7 @@
     <div class="second">
       <div class="testimony">
         <div class="star">
-          <img src="../assets/Star.png" alt="" v-for="index in 5" :key="index">
+          <img src="../assets/icons/Star.png" alt="" v-for="index in 5" :key="index">
         </div>
         <div class="body">
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, dolorem delectus voluptate modi reprehenderit earum. In maiores ab iste itaque officiis, eligendi at tenetur! Vel reprehenderit architecto quos dolores commodi?</p>
@@ -29,7 +29,7 @@
       </div>
       <div class="testimony">
         <div class="star">
-          <img src="../assets/Star.png" alt="" v-for="index in 5" :key="index">
+          <img src="../assets/icons/Star.png" alt="" v-for="index in 5" :key="index">
         </div>
         <div class="body">
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, dolorem delectus voluptate modi reprehenderit earum. In maiores ab iste itaque officiis, eligendi at tenetur! Vel reprehenderit architecto quos dolores commodi?</p>
@@ -38,7 +38,7 @@
       </div>
       <div class="testimony">
         <div class="star">
-          <img src="../assets/Star.png" alt="" v-for="index in 5" :key="index">
+          <img src="../assets/icons/Star.png" alt="" v-for="index in 5" :key="index">
         </div>
         <div class="body">
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, dolorem delectus voluptate modi reprehenderit earum. In maiores ab iste itaque officiis, eligendi at tenetur! Vel reprehenderit architecto quos dolores commodi?</p>
@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="right">
-      <img src="../assets/cheerful-small-business-owner-with-open-sign 1.png" alt="">
+      <img src="../assets/display/cheerful-small-business-owner-with-open-sign 1.png" alt="">
     </div>
   </div>
 </template>

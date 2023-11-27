@@ -2,7 +2,7 @@
 <div class="app">
   <navigation />
   <transition name="scale-fade" mode="out-in" >
-    <div v-if="showContent">
+    <div v-if="showContent" class="app-wrap">
      <router-view />
     </div>
   </transition>
@@ -65,6 +65,10 @@ export default {
 .app {
  max-width: 100%;
  overflow-x: hidden;
+}
+
+.app-wrap {
+  @apply lg:container;
 }
 
 /* .fade-enter-active, 

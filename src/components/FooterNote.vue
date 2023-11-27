@@ -3,7 +3,7 @@
     <div class="footer-wrap">
       <div class="logo">
         <router-link class="link" :to="{name: 'home'}">
-          <img src="../assets/RSPryLogoHor 1.png" alt="">
+          <img src="../assets/logo/RSPryLogoHor 1.png" alt="">
         </router-link>
       </div>
 

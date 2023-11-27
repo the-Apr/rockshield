@@ -21,12 +21,12 @@
           <div class="license">
             <div class="licensed-by">
               <h3>DEPOSIT INSURED BY</h3>
-              <img src="../assets/ndic_small_logo-1 1.png" alt="ndic logo">
+              <img src="../assets/logo/ndic_small_logo-1 1.png" alt="ndic logo">
             </div>
             <div class="licensed-by">
               <h3>LICENSED BY</h3>
               <div class="cbn">
-                <img src="../assets/cbn.png" alt="cbn">
+                <img src="../assets/logo/cbn.png" alt="cbn">
                 <h3>Central Bank of Nigeria </h3>
               </div>
             </div>
@@ -36,13 +36,13 @@
         <div class="right">
           <div class="images">
             <div class="first">
-              <img src="../assets/portrait-african-american-baker-with-fresh-bread-bakery-pastry-chef-holding-small-pastry 2.png" alt="portrait-african-american-baker-with-fresh-bread-bakery-pastry-chef-holding-small-pastry">
+              <img src="../assets/display/portrait-african-american-baker-with-fresh-bread-bakery-pastry-chef-holding-small-pastry 2.png" alt="portrait-african-american-baker-with-fresh-bread-bakery-pastry-chef-holding-small-pastry">
             </div>
             <div class="second">
-              <img src="../assets/front-view-black-woman-running-flower-business 2.png" alt="">
+              <img src="../assets/display/front-view-black-woman-running-flower-business 2.png" alt="">
             </div>
             <div class="third">
-              <img src="../assets/medium-shot-smiley-woman-market 1.png" alt="">
+              <img src="../assets/display/medium-shot-smiley-woman-market 1.png" alt="">
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@
         <h2>Our Partners</h2>
         <div class="partners-wrap">
           <a :href="partner.link" target="_blank" v-for="(partner,index) in partners" :key="index">
-            <img :src="require(`../assets/${partner.image}.png`)" alt="">
+            <img :src="require(`../assets/logo/${partner.image}.png`)" alt="">
           </a>
         </div>
 

@@ -104,7 +104,7 @@ export default {
           // border-radius: 8px 8px 0 0;
 
           @screen lg {
-            @apply w-[302px] min-h-[218px];
+            @apply w-[302px] h-[218px];
           }
         }
       }

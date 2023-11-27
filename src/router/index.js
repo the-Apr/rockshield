@@ -13,7 +13,18 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/About.vue')
+    component: () => import('../views/About.vue'),
+    meta: {
+      title: 'About Us'
+    }
+  },
+  {
+    path: '/create-account',
+    name: 'create-account',
+    component: () => import('../views/CreateAcct.vue'),
+    meta: {
+      title: 'Create Account'
+    }
   }
 ]
 

@@ -49,7 +49,7 @@
           We are also committed to the social and economic empowerment of our customers through the provision of formidable and responsive financial services.</p>
         </div>
         <div class="image">
-          <img src="../assets/Success 1.png" alt="">
+          <img src="../assets/display/Success 1.png" alt="">
         </div>
       </div>
     </div>
@@ -74,29 +74,29 @@ export default {
   data() {
     return {
       aboutImages: [
-        { link: require('../assets/happy-workers.png') },
-        { link: require("../assets/portrait-young-happy-african-man-woman-showing-thumbs-up 1.png") },
-        { link: require("../assets/group-afro-americans-working-together 2.png") }
+        { link: require('../assets/display/happy-workers.png') },
+        { link: require("../assets/display/portrait-young-happy-african-man-woman-showing-thumbs-up 1.png") },
+        { link: require("../assets/display/group-afro-americans-working-together 2.png") }
       ],
       cardDetails: [
         {
           title : "Team",
-          image: require("../assets/Vector.png"),
+          image: require("../assets/icons/Vector.png"),
           body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et nibh urna in proin dui purus bibendum cras. Morbi cursus nunc."
         },
         {
           title : "Integrity",
-          image: require("../assets/integrity.png"),
+          image: require("../assets/icons/integrity.png"),
           body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et nibh urna in proin dui purus bibendum cras. Morbi cursus nunc."
         },
         {
           title : "Service",
-          image: require("../assets/service.png"),
+          image: require("../assets/icons/service.png"),
           body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et nibh urna in proin dui purus bibendum cras. Morbi cursus nunc."
         },
         {
           title : "Excellence",
-          image: require("../assets/badge 1.png"),
+          image: require("../assets/icons/badge 1.png"),
           body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et nibh urna in proin dui purus bibendum cras. Morbi cursus nunc."
         }
       ]
