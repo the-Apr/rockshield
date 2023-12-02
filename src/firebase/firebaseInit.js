@@ -1,20 +1,24 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDoN9hc94RIeaIEHB9CLI9CQjx7tKES3OE",
-  authDomain: "rockshield-67f0a.firebaseapp.com",
-  projectId: "rockshield-67f0a",
-  storageBucket: "rockshield-67f0a.appspot.com",
-  messagingSenderId: "685150980006",
-  appId: "1:685150980006:web:aa51f0f927445924ea3167",
-  measurementId: "G-TVB8XFCSLE"
+  apiKey: "AIzaSyALZS7bEJk33NAI1mr9BShqnjM5TRHscDE",
+  authDomain: "rockshield-mfb.firebaseapp.com",
+  projectId: "rockshield-mfb",
+  storageBucket: "rockshield-mfb.appspot.com",
+  messagingSenderId: "354641952527",
+  appId: "1:354641952527:web:8610a175ab2eb0bdf8487a",
+  measurementId: "G-WE9306101P"
 };
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const analytics = getAnalytics(firebaseApp);
+const db = getFirestore(firebaseApp);
+const auth = getAuth(firebaseApp);
 
-export {firebaseApp, analytics};
+export {firebaseApp, analytics, db, auth};

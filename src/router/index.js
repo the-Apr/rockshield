@@ -25,7 +25,31 @@ const routes = [
     meta: {
       title: 'Create Account'
     }
-  }
+  },
+  {
+    path: '/admin-login',
+    name: 'admin-login',
+    component: () => import('../views/Admin/Login.vue'),
+    meta: {
+      title: 'Login'
+    }
+  },
+  {
+    path: '/admin-register',
+    name: 'admin-register',
+    component: () => import('../views/Admin/Register.vue'),
+    meta: {
+      title: 'Register'
+    }
+  },
+  {
+    path: '/account-list',
+    name: 'account-list',
+    component: () => import('../views/Admin/AccountList.vue'),
+    meta: {
+      title: 'Account-list'
+    }
+  },
 ]
 
 const router = createRouter({

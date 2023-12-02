@@ -1,6 +1,6 @@
 <template>
 <transition name="account">
-  <div class="create-acct" v-if="accountModalActive">
+  <div class="create-acct">
     <div class="acct-wrap">
       <form @submit.prevent="submitForm">
         <loading v-show="loading" />
@@ -12,7 +12,7 @@
           <label for="bvn">BVN
             <span class="required-field"></span>
           </label>
-          <input required type="text" name="bvn" id="bvn" v-model="bvn">
+          <input required type="text" placeholder="Enter BVN" maxlength="11" autocomplete="off" name="bvn" id="bvn" v-model="bvn">
         </div>
 
         <!-- firstname -->
@@ -30,8 +30,8 @@
         <!-- gender -->
         <div class="form-group">
           <label for="title">Gender</label>
-          <select name="" id="gender" v-model="gender">
-            <option value="">--Select--</option>
+          <select name="gender" id="gender" required v-model="gender">
+            <option value>--Select--</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="others">Others</option>
@@ -40,10 +40,12 @@
         </div>
 
         <!-- email address -->
+        <keep-alive>
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" placeholder="Email" name="" id="email" v-model="email">
         </div>
+        </keep-alive>
 
         <!-- occupation -->
         <div class="form-group">
@@ -167,14 +169,28 @@
 
   </div>
 </transition>
+
+<div class="modal-overlay" v-show="isSuccessful">
+
+  <div class="modal flex">
+    <div class="modal-content">
+      <p>Submitted successfully. We'll get in touch with you shortly.</p>
+      <div class="actions">
+      
+        <nav-button> Close</nav-button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
+
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from '../firebase/firebaseInit';
+import { uid } from 'uid';
 import NavButton from '@/components/NavButton.vue';
 import Loading from '@/components/Loading.vue'
-import {mapState} from 'vuex';
-import { collection, doc, setDoc, db } from "firebase/firestore";
-import {uid} from 'uid';
 
 export default {
 
@@ -185,6 +201,7 @@ export default {
 
   data () {
     return {
+      isSuccessful: null,
       countries: [],
       loading: null,
       bvn: null,
@@ -210,7 +227,6 @@ export default {
   },
 
   computed: {
-    ...mapState(['accountModalActive'])
   },
 
    mounted() {
@@ -233,8 +249,8 @@ export default {
     },
 
     submitForm() {
-      console.log('submitted')
-      this.uploadForm()
+      console.log('submitted');
+      this.uploadForm();
     },
 
     async uploadForm() {
@@ -244,7 +260,7 @@ export default {
       const newAccountDoc = doc(customerCollection);
 
       const formData = {
-        invoiceId: uid(6),
+        accountId: uid(6),
         bvn: this.bvn,
         lastName: this.lastName,
         firstName: this.firstName,
@@ -270,6 +286,8 @@ export default {
         await setDoc(newAccountDoc, formData);
 
         this.loading = false;
+
+        this.isSuccessful = true;
       } catch (error) {
         console.error("Error uploading your information:", error);
       }
@@ -320,6 +338,7 @@ export default {
         color: red;
       }
     }
+
     input,
     select {
       @apply w-full p-3  shadow-sm ring-1 ring-inset ring-gray-300 outline-none;
@@ -377,6 +396,47 @@ form{
 .account-enter-from,
 .account-leave-to {
   transform: translateX(-700px);
+}
+
+.modal {
+  // z-index: 1;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+
+  .modal-content {
+    border-radius: 20px;
+    padding: 40px 32px;
+    max-width: 450px;
+    background-color: #252945;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      text-align: center;
+    }
+
+    .actions {
+      margin-top: 24px;
+      button {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 2; /* Position it above other content, but below the modal */
 }
 
 

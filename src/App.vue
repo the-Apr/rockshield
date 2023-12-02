@@ -1,19 +1,21 @@
 <template>
 <div class="app">
-  <navigation />
+  <navigation v-if="!hideNav"/>
   <transition name="scale-fade" mode="out-in" >
     <div v-if="showContent" class="app-wrap">
      <router-view />
     </div>
   </transition>
 
-  <footer-note />
+  <footer-note v-if="!hideNav"/>
 </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation.vue'
 import FooterNote from '@/components/FooterNote.vue'
+import { auth } from "@/firebase/firebaseInit";
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default {
   components: {
@@ -24,28 +26,55 @@ export default {
   data() {
     return {
       showContent: false,
+      hideNav: null
     }
+  },
+
+  created () {
+
+    this.checkRoute();
+
+     onAuthStateChanged(auth, async (user) =>{
+      this.loading = true;
+      await this.$store.commit("updateUser", user);
+      this.loading = false;
+      if(user){
+        // this.loading = true;
+        await this.$store.dispatch("getCurrentUser", user);
+        this.loading = false;
+      }
+    })
   },
 
   mounted() {
     this.showContent = true;
-
-    
   },
 
-  beforeRouteLeave(_to, _from, next) {
-   this.routerViewKey += 1;
-    next();
-    
-
-    // setTimeout(() => next(), 500); 
+  watch: {
+  $route() {
+    this.checkRoute();
+  },
   },
 
-  // beforeRouteEnter(_to, _from, next) {
-  //   this.showContent = true;
-  //   console.log(this.showContent)
+  // beforeRouteLeave(_to, _from, next) {
+  //  this.routerViewKey += 1;
   //   next();
+  //   // setTimeout(() => next(), 500); 
   // },
+
+  methods: {
+    checkRoute() {
+      if (
+        this.$route.name === "admin-login" ||
+        this.$route.name === "admin-register" ||
+        this.$route.name === "account-list" 
+      ) {
+        this.hideNav = true;
+        return;
+      }
+      this.hideNav = false;
+    }
+  }
 }
 </script>
 
@@ -67,9 +96,9 @@ export default {
  overflow-x: hidden;
 }
 
-.app-wrap {
+/* .app-wrap {
   @apply lg:container;
-}
+} */
 
 /* .fade-enter-active, 
 .fade-leave-active {

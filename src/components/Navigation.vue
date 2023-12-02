@@ -1,11 +1,15 @@
 <template>
 <header>
   <nav class="nav-wrap">
+
+    <!-- RS logo -->
     <div class="branding">
-      <router-link class="link" :to="{name: 'home'}">
+      <router-link class="" :to="{name: 'home'}">
         <img src="../assets/logo/RSPryLogoHor 1.png" alt="">
       </router-link>
     </div>
+
+    <!-- nav links -->
     <div class="nav-links">
       <ul v-show="!mobile">
         <router-link class="link" :to="{}">Products</router-link>
@@ -14,11 +18,10 @@
         <router-link class="link" :to="{}">Help</router-link>
       </ul>
     </div>
-    <div class="nav-button" v-show="!mobile" @click="toggleAccount">
+    <div class="nav-button" v-show="!mobile">
       <router-link :to="{name: 'create-account'}">
         <nav-button>Create Account </nav-button>
       </router-link>
-     
     </div>
   </nav>
 
@@ -29,18 +32,19 @@
     v-show="mobile"
   />
   <transition name="mobile-nav" >
-    <ul v-show="mobileNav" class="mobile-nav">
+    <div class="mobile-wrap" v-show="mobileNav">
+    <ul class="mobile-nav">
       <router-link class="link" :to="{}">Home</router-link>
       <router-link class="link" :to="{}">Blogs</router-link>
       <router-link class="link" to="#">Create Post</router-link>
       <router-link class="link" :to="{}">Login/Register</router-link>
     </ul>
+    </div>
   </transition>
 </header> 
 </template>
 
 <script>
-import {mapState} from 'vuex';
 import NavButton from '@/components/NavButton.vue'
 
 export default {
@@ -63,9 +67,7 @@ export default {
     this.checkScreen();
   },
 
-  computed : {
-  ...mapState(['accountModalActive'])
-},
+  computed : {},
 
   methods: {
     checkScreen() {
@@ -82,10 +84,6 @@ export default {
     toggleNav() {
       this.mobileNav = !this.mobileNav
     },
-
-    toggleAccount() {
-      this.accountModalActive = !this.accountModalActive;
-    }
   }
 } 
 </script>
@@ -152,6 +150,13 @@ header {
     @apply top-7 right-16 
   }
 }
+
+// .mobile-wrap {
+//   @apply fixed top-0 left-0 w-full bg-transparent;
+//   height: 100%;
+//   z-index: 2;
+//   // background-color: rgba(0, 0, 0, 0.5);
+// }
 
 .mobile-nav {
   @apply p-5 w-4/6 flex flex-col fixed h-full top-0 left-0 items-start;
