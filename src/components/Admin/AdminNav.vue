@@ -22,13 +22,13 @@
 
       <div class="options">
         <div class="option">
-          <router-link class="option" to="Profile">
+          <router-link class="option" to="">
               <fa-icon class="icon" :icon="['fas', 'user']" />
               <p>Profile</p>
           </router-link>
         </div>
         <div class="option">
-          <router-link class="option" to="Admin">
+          <router-link class="option" to="">
               <fa-icon class="icon" :icon="['fas', 'user-secret']" />
               <p>Admin</p>
           </router-link>
@@ -97,7 +97,7 @@ export default {
     @apply relative cursor-pointer flex items-center justify-center w-10 h-10 ml-4;
     border-radius: 50%;
     color: #fff;
-    background-color: #303030;
+    background-color: #00ABF1;
 
     span {
       @apply uppercase;

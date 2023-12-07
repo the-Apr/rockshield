@@ -18,7 +18,6 @@
   align-items: center;
   justify-content: center;
   color: #ffff;
-  gap: 10px;
   font-weight: bold;
   border: 3px solid #ffffff4d;
   outline: none;
@@ -30,10 +29,6 @@
 .button:hover {
   transform: scale(1.05);
   border-color: #fff9;
-}
-
-.button:hover .icon {
-  transform: translate(4px);
 }
 
 .button:hover::before {

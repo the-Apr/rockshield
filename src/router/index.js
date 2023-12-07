@@ -50,6 +50,14 @@ const routes = [
       title: 'Account-list'
     }
   },
+  {
+    path: '/customer-form/:accountId',
+    name: 'customer-form',
+    component: () => import('../views/Admin/CustomerForm.vue'),
+    meta: {
+      title: 'Customer-form'
+    }
+  },
 ]
 
 const router = createRouter({

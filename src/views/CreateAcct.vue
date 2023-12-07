@@ -1,9 +1,8 @@
 <template>
-<transition name="account">
   <div class="create-acct">
     <div class="acct-wrap">
       <form @submit.prevent="submitForm">
-        <loading v-show="loading" />
+        
 
         <h3>Account Opening Form</h3>
 
@@ -18,13 +17,13 @@
         <!-- firstname -->
         <div class="form-group">
           <label for="firstname">Firstname</label>
-          <input type="text" placeholder="Firstname" name="" id="firstname" required readonly  v-model="firstName">
+          <input type="text" placeholder="Firstname" name="" id="firstname" required   v-model="firstName">
         </div>
 
         <!-- lastname -->
         <div class="form-group">
           <label for="lastname">Lastname</label>
-          <input type="text" placeholder="Lastname" name="" id="lastname" required readonly v-model="lastName">
+          <input type="text" placeholder="Lastname" name="" id="lastname" required v-model="lastName">
         </div>
 
         <!-- gender -->
@@ -137,6 +136,12 @@
           <input type="text" name="" id="nokAddress" v-model="nokAddress">
         </div>
 
+        <!-- form Date -->
+        <div class="form-group">
+          <label for="formDate">Account Date</label>
+          <input disabled type="text" name="" id="formDate" v-model="formDate">
+        </div>
+
         <!-- otp -->
         <div class="form-group">
           <label for="otp">OTP</label>
@@ -162,26 +167,15 @@
 
         <!-- submit button -->
         <div class="open-account">
-          <nav-button class="btn">Open Account</nav-button>
+          <button @click="publishForm" class="blue btn">Open Account</button>
         </div>
       </form>
     </div>
 
   </div>
-</transition>
 
-<div class="modal-overlay" v-show="isSuccessful">
-
-  <div class="modal flex">
-    <div class="modal-content">
-      <p>Submitted successfully. We'll get in touch with you shortly.</p>
-      <div class="actions">
-      
-        <nav-button> Close</nav-button>
-      </div>
-    </div>
-  </div>
-</div>
+  <!-- submitted successfully -->
+  
 </template>
 
 <script>
@@ -201,7 +195,11 @@ export default {
 
   data () {
     return {
-      isSuccessful: null,
+      formDate: null,
+      formDateUnix: null,
+      dateOptions: { year: "numeric", month: "short", day: "numeric" },
+      formPending: null,
+      formInit: null,
       countries: [],
       loading: null,
       bvn: null,
@@ -226,6 +224,11 @@ export default {
     }
   },
 
+  created() {
+    this.formDateUnix = Date.now();
+    this.formDate = new Date(this.formDateUnix).toLocaleDateString("en-us",this.dateOptions);
+  },
+
   computed: {
   },
 
@@ -234,6 +237,10 @@ export default {
   },
 
   methods: {
+    publishForm() {
+      this.formInit = true;
+    },
+
     fetchCountries() {
       fetch("https://restcountries.com/v3.1/all")
         .then((response) => response.json())
@@ -249,7 +256,6 @@ export default {
     },
 
     submitForm() {
-      console.log('submitted');
       this.uploadForm();
     },
 
@@ -278,10 +284,13 @@ export default {
         nokPhoneNum: this.nokPhoneNum,
         nokAddress: this.nokAddress,
         otp: this.otp,
-        chkTerms: this.chkTerms
+        chkTerms: this.chkTerms,
+        formInit: this.formInit,
+        formPending: this.formPending,
+        formDone: null,
+        formDate: null,
       }; 
 
-      console.log(formData);
       try {
         await setDoc(newAccountDoc, formData);
 
@@ -373,14 +382,6 @@ export default {
 
   .open-account {
     @apply my-4 ;
-
-    .btn {
-      @apply w-full;
-
-      @screen md {
-        @apply w-auto
-      }
-    }
   }
 } 
 
@@ -388,56 +389,7 @@ form{
   @apply max-w-[700px]
 }
 
-.account-enter-active,
-.account-leave-active {
-  transition: 0.8s ease all;
-}
 
-.account-enter-from,
-.account-leave-to {
-  transform: translateX(-700px);
-}
-
-.modal {
-  // z-index: 1;
-  position: fixed;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-
-  .modal-content {
-    border-radius: 20px;
-    padding: 40px 32px;
-    max-width: 450px;
-    background-color: #252945;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    p {
-      text-align: center;
-    }
-
-    .actions {
-      margin-top: 24px;
-      button {
-        flex: 1;
-      }
-    }
-  }
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-  z-index: 2; /* Position it above other content, but below the modal */
-}
 
 
 
