@@ -4,15 +4,16 @@
       <img src="" alt="">
     </div>
     <div class="right">
-      <div class="text" :class="{'text-box' : isFirst}">
-        <h3>{{service.title}}</h3>
-        <h2>{{service.catchPhrase}}</h2>
-        <p>{{service.body}}</p>
-      </div>
-      <div class="action">
-        <router-link :to="{}">Learn more</router-link>
-        <fa-icon class="arrow" :icon="['fas', 'arrow-right']" />
-
+      <div class="info-wrap">
+        <div class="text" :class="{'text-box' : isFirst}">
+          <h3>{{service.title}}</h3>
+          <h2>{{service.catchPhrase}}</h2>
+          <p>{{service.body}}</p>
+        </div>
+        <div class="action">
+          <router-link :to="{}">Learn more</router-link>
+          <fa-icon class="arrow" :icon="['fas', 'arrow-right']" />
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +67,7 @@ export default {
   }
 
   .right {
-    @apply w-full flex flex-col items-center justify-center gap-10 py-6 px-4 order-1;
+    @apply w-full  items-center justify-center py-6 px-4 order-1;
 
     @screen md {
       @apply py-10 px-14;
@@ -76,14 +77,17 @@ export default {
       @apply w-1/2 order-2;
     }
 
+    .info-wrap {
+      @apply max-w-[550px] flex flex-col gap-10 ;
+
+      @screen md{
+        @apply max-w-[500px];
+      }
+    }
+
     .text {
       @apply flex flex-col gap-8 text-left items-center ;
-      max-width: 550px;
-      
-
-      @screen md {
-        max-width: 500px;
-      }
+     
 
       // &:first-child {
       //   max-width: 400px;
@@ -112,7 +116,7 @@ export default {
     }
 
     .action {
-      @apply flex gap-3 items-center  ml-1;
+      @apply flex gap-3 items-center ; 
       
 
       @screen md {

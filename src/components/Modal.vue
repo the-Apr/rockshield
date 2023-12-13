@@ -1,7 +1,7 @@
 <template>
-  <div class="modal-overlay" v-show="isSuccessful">
-    <div class="modal flex">
-      <div class="modal-content">
+  <div class="modal-overlay" v-if="show">
+    <div class="modal flex" >
+      
         <dialog open>
         <div>
           <slot name="image"></slot>
@@ -17,7 +17,7 @@
           </slot>
         </div>
         </dialog>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
   height: 100vh;
   width: 100%;
 
-  .modal-content {
+  dialog {
     border-radius: 20px;
     padding: 40px 32px;
     max-width: 450px;

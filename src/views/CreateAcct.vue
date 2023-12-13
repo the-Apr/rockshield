@@ -1,9 +1,9 @@
 <template>
   <div class="create-acct">
+  <modal content="sucessfully submiutted" :show= "isSuccessful" @close="close"></modal>
     <div class="acct-wrap">
       <form @submit.prevent="submitForm">
         
-
         <h3>Account Opening Form</h3>
 
         <!-- bvn -->
@@ -195,6 +195,7 @@ export default {
 
   data () {
     return {
+      isSuccessful: null,
       formDate: null,
       formDateUnix: null,
       dateOptions: { year: "numeric", month: "short", day: "numeric" },
@@ -237,6 +238,11 @@ export default {
   },
 
   methods: {
+
+    close() {
+      this.isSuccessful= null;
+    },
+
     publishForm() {
       this.formInit = true;
     },

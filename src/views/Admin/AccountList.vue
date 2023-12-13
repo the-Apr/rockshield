@@ -1,11 +1,21 @@
 <template>
-<div class="account-list">
-  <modal content="sucessfully submiutted"></modal>
+<div 
+  class="account-list" 
+  ref="activityDetector" 
+  @mousemove="resetTimer" 
+  @keydown="resetTimer">
+
+  <loading v-if="!isAuthenticated || !dataLoaded"/>
   <!-- header -->
   <admin-nav/>
+  <div class="home" v-if="dataLoaded">
+
+  <div class="welcome-text">
+    <h2 class="text">Welcome back, {{welcomeUser}}</h2>
+  </div>
 
   <!-- body -->
-   <div class="home box">
+   <div class="box">
     <div class="header flex">
       <div class="left flex flex-col">
         <h1>Submitted Forms</h1>
@@ -36,19 +46,20 @@
     </div>
   </div>
 
+  </div>  
 
 </div>
 </template>
 
 <script>
-
+import { auth } from '@/firebase/firebaseInit';
+import { signOut } from 'firebase/auth';
 import AdminNav from '@/components/Admin/AdminNav.vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 import AcctForm from '@/components/Admin/AcctForm.vue'
-import Modal from '@/components/Modal.vue';
 
 export default {
-	components: { AdminNav, AcctForm, Modal },
+	components: { AdminNav, AcctForm },
 
   data() {
     return {
@@ -58,7 +69,16 @@ export default {
   },
 
   computed: {
-    ...mapState(['formData', 'formsLoaded']),
+    ...mapState(['formData', 'formsLoaded', 'profileFirstName', 'isAuthenticated']),
+
+    dataLoaded() {
+      // Add conditions based on your actual data loading logic
+      return this.formData !== null && this.formsLoaded && this.profileFirstName !== null && this.getForms!== null;
+    },
+
+    welcomeUser(){
+      return this.profileFirstName.toUpperCase()
+    },
 
     filteredData() {
       return this.formData.filter(customerForm => {
@@ -80,8 +100,34 @@ export default {
     this.getForms();
   },
 
+  mounted() {
+    const activityDetector = this.$refs.activityDetector;
+
+    // Set up initial timer
+    this.resetTimer();
+
+    // Start listening for user activity
+    activityDetector.focus();
+  },
+
   methods: {
     ...mapActions(['getForms']),
+    ...mapMutations(['setAuthenticationStatus']),
+
+    // auto logout
+    resetTimer() {
+      clearTimeout(this.inactivityTimer);
+      this.inactivityTimer = setTimeout(this.logout, 300000); // 5 minutes (adjust as needed)
+    },
+
+    logout() {
+      signOut(auth);
+      window.location.reload();
+      this.setAuthenticationStatus (false)
+      this.$router.push({name: 'admin-login'});
+      console.log("logged out")
+      // Redirect or perform any additional actions after logout
+    },
 
     toggleFilterMenu() {
       this.filterMenu = !this.filterMenu
@@ -108,7 +154,28 @@ $box-shadow:  0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.
 .home {
   color: #fff;
   background-color: #141625;
+  height: 100vh;
   @apply px-8;
+
+  .welcome-text{
+    @apply py-8 inline-block;
+    .text{
+      @apply text-2xl font-bold tracking-[2px] w-full whitespace-nowrap overflow-hidden ;
+      animation: 
+      typing 2s ,
+      cursor .4s step-end infinite alternate;
+
+        // cursor blinking
+        @keyframes cursor {
+          50% {border-color: transparent}
+        }
+
+        // typing effect
+        @keyframes typing {
+          from {width: 0}
+        }
+    }
+  }
 
   .header {
     margin-bottom: 65px;

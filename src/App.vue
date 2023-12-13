@@ -154,6 +154,9 @@ button,
   padding: 8px 30px;
   border-radius: 10px;
 }
+.red{
+ @apply text-red-700
+}
 
 .blue {
   @apply bg-[#00ABF1];

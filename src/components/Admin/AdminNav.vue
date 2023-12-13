@@ -46,6 +46,7 @@
 <script>
 import { auth } from '@/firebase/firebaseInit';
 import { signOut } from 'firebase/auth';
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -54,12 +55,12 @@ export default {
   },
 
   computed : {
-    user() {
-      return this.$store.state.user
-    }
+    ...mapState(['user'])
   },
 
   methods: {
+    ...mapMutations(['setAuthenticationStatus']),
+
     toggleProfileMenu(e) {
       if (e.target === this.$refs.profile){
         this.profileMenu = !this.profileMenu
@@ -67,8 +68,11 @@ export default {
     },
   
     signOut() {
-      signOut(auth)
-      window.location.reload()
+      signOut(auth);
+      window.location.reload();
+      this.setAuthenticationStatus (false)
+      this.$router.push({name: 'admin-login'});
+
     }
   }
 }

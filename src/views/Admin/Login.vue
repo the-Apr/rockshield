@@ -12,13 +12,22 @@
           <fa-icon class="icon" :icon="['fas', 'envelope']" />
         </div>
         <div class="input">
-          <input type="password" placeholder="Password" v-model="password">
+          <input  :type="showPassword ? 'text' : 'password'" placeholder="Password" v-model="password">
           <fa-icon class="icon" :icon="['fas', 'lock']" />
+          <fa-icon @click="toggleShowPassword" class="eye-slash" :icon="['far', 'eye-slash']"  />
         </div>
-        <div v-show="error" class="error">{{this.errorMsg}}</div>
+        <div v-show="error" class="error red">{{this.errorMsg}}</div>
       </div>
       <router-link class="forgot-password" :to="{name:  ''}">Forgot your Password?</router-link>
-      <button @click.prevent= "signIn">Sign In</button>
+      <button class="blue btn" :class="loading && 'text-end'"
+         @click.prevent="signIn" :disabled="loading">
+        <span v-if="loading">
+          <!-- Loading icon or message -->
+          <fa-icon class="circle-notch animate-spin" :icon="['fas', 'circle-notch']" />
+        </span>
+        {{ loading ? 'Signing In...' : 'Sign In' }}
+      </button>
+
       <div class="angle"></div>
     </form>
     <div class="background"></div>
@@ -27,7 +36,8 @@
 
 <script>
 import { auth } from '../../firebase/firebaseInit'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from 'firebase/auth'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Login',
@@ -37,22 +47,54 @@ export default {
       email: "",
       password: "",
       error: null,
-      errorMsg: ""
+      errorMsg: "",
+      showPassword: null,
+      loading: null,
     }
   },
 
+
+
   methods: {
+
+    ...mapMutations(['setAuthenticationStatus']),
+
+    toggleShowPassword(){
+      this.showPassword = !this.showPassword
+    },
+
+  
+
     signIn() {
+      this.loading = true;
       signInWithEmailAndPassword(auth, this.email, this.password)
       .then(() => {
-        this.$router.push({name: "account-list"})
-        this.error = false;
-        this.errorMsg = "";
-      }). catch(err => {
-        this.error = true;
-        this.errorMsg = err.message; 
+        // Set session persistence
+        setPersistence(auth, browserSessionPersistence)
+          .then(() => {
+            // Auth state persistence set
+            console.log('persistence set');
+            this.setAuthenticationStatus(true);
+            this.$router.push({ name: "account-list" });
+            this.error = false;
+            this.errorMsg = "";
+            // console.log(auth.currentUser.uid);
+          })
+          .catch((error) => {
+            // Handle errors setting persistence
+            console.error("Error setting persistence:", error);
+          })
+          .finally(() => {
+              // Set loading state back to false when the operation is complete
+              this.loading = false;
+            });
       })
+      .catch((err) => {
+        this.error = true;
+        this.errorMsg = err.message;
+      });
     },
+
   }
 }
 </script>
@@ -135,6 +177,12 @@ export default {
           position: absolute;
           left: 10px;
         }
+        .eye-slash {
+          width: 12px;
+          position: absolute;
+          right: 10px;
+        }
+
 
       }
     }
@@ -166,6 +214,16 @@ export default {
         display: initial;
       }
     }
+  }
+
+  button:disabled {
+    /* Your custom styles for disabled buttons */
+    opacity: 0.7;
+    cursor: not-allowed;
+    /* Add more styles as needed */
+  }
+  .circle-notch {
+    @apply h-5 w-5 mr-3 absolute left-3;
   }
 
   .background {

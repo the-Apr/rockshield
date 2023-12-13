@@ -6,6 +6,7 @@ export default createStore({
   state: {
 
     // profile
+    isAuthenticated: false,
     user: null,
     profileEmail: null,
     profileFirstName: null,
@@ -24,6 +25,10 @@ export default createStore({
   },
 
   mutations: {
+    setAuthenticationStatus(state, isAuthenticated) {
+      state.isAuthenticated = isAuthenticated;
+    },
+    
     updateUser(state, payload) {
       state.user = payload
     },
@@ -74,6 +79,7 @@ export default createStore({
       })
     }
   },
+  
 
   actions: {
     async getCurrentUser({commit}, user) {
