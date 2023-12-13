@@ -33,12 +33,39 @@
   />
   <transition name="mobile-nav" >
     <div class="mobile-wrap" v-show="mobileNav">
-    <ul class="mobile-nav">
-      <router-link class="link" :to="{}">Home</router-link>
-      <router-link class="link" :to="{}">Blogs</router-link>
-      <router-link class="link" to="#">Create Post</router-link>
-      <router-link class="link" :to="{}">Login/Register</router-link>
-    </ul>
+
+      <!-- rockshield logo -->
+      <div class="branding">
+        <router-link class="" :to="{name: 'home'}">
+          <img src="../assets/logo/RSPryLogoHor 1.png" alt="">
+        </router-link>
+      </div>
+
+      <!-- navigation -->
+      <div class="mobile-nav">
+        <ul>
+          <router-link class="link" :to="{}">Products</router-link>
+          <router-link class="link" :to="{}">Media</router-link>
+          <router-link class="link" :to="{name: 'about'}">About Us</router-link>
+          <router-link class="link" :to="{}">Help</router-link>
+        </ul>
+      </div> 
+
+      <!-- social media -->
+      <div class="socials">
+        <a href="https://www.instagram.com/rockshieldmfb/?igshid=YmMyMTA2M2Y%3D" target="_blank">
+          <fa-icon :icon="['fab', 'instagram']" class="icon" />
+        </a>
+        <a href="https://www.facebook.com/RockshieldMFB" target="_blank">
+          <fa-icon :icon="['fab', 'facebook']" class="icon" />
+        </a>
+        <a href="https://twitter.com/rockshieldmfb" target="_blank">
+          <fa-icon :icon="['fab', 'x-twitter']" class="icon" />
+        </a>
+        <a href="https://www.linkedin.com/in/rockshieldmfb/" target="_blank">
+          <fa-icon :icon="['fab', 'linkedin']" class="icon" />
+        </a>
+      </div>
     </div>
   </transition>
 </header> 
@@ -151,23 +178,42 @@ header {
   }
 }
 
-// .mobile-wrap {
+.mobile-wrap {
+  @apply flex flex-col p-5 w-4/6 fixed h-full top-0 left-0 gap-y-8;
+  background-color: #303030;
+  z-index: 99;
+  max-width: 270px;
+
+  .mobile-nav {
+    @apply mt-5;
+    ul{
+      @apply  flex flex-col;
+      
+      .link {
+        @apply py-4 text-white
+      }
+    } 
+  }
+
+  .socials {
+    @apply justify-center justify-items-end flex gap-4;
+
+    .icon{
+      @apply h-5 w-5;
+      color: white;
+    }
+  }
+  
+}
+
+// .mobile-overlay {
 //   @apply fixed top-0 left-0 w-full bg-transparent;
 //   height: 100%;
 //   z-index: 2;
 //   // background-color: rgba(0, 0, 0, 0.5);
 // }
 
-.mobile-nav {
-  @apply p-5 w-4/6 flex flex-col fixed h-full top-0 left-0 items-start;
-  max-width: 250px;
-  background-color: #303030;
-  z-index: 99;
 
-  .link {
-    @apply py-4 text-white
-  }
-}
 
 .mobile-nav-enter-active,
 .mobile-nav-leave-active {

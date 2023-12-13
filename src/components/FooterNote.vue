@@ -40,10 +40,19 @@
         <div class="contact-details">
           <h2 class="">Connect</h2>
           <div class="socials">
-            <fa-icon :icon="['fab', 'instagram']" class="icon" />
-            <fa-icon :icon="['fab', 'twitter']"  class="icon" />
-            <fa-icon :icon="['fab', 'facebook']" class="icon" />
-            <fa-icon :icon="['fab', 'linkedin']" class="icon" />
+            <a href="https://www.instagram.com/rockshieldmfb/?igshid=YmMyMTA2M2Y%3D" target="_blank">
+               <fa-icon :icon="['fab', 'instagram']" class="icon" />
+            </a>
+            <a href="https://www.facebook.com/RockshieldMFB" target="_blank">
+               <fa-icon :icon="['fab', 'facebook']" class="icon" />
+            </a>
+            <a href="https://twitter.com/rockshieldmfb" target="_blank">
+               <fa-icon :icon="['fab', 'x-twitter']" class="icon" />
+            </a>
+            <a href="https://www.linkedin.com/in/rockshieldmfb/" target="_blank">
+               <fa-icon :icon="['fab', 'linkedin']" class="icon" />
+            </a>
+            
           </div>
           <a href="https://www.google.com/maps/place/Rockshield+MicroFinance+Bank/@6.5356417,3.3320732,14.34z/data=!4m19!1m12!4m11!1m3!2m2!1d3.3457169!2d6.5374944!1m6!1m2!1s0x103b8d3622137e91:0xe86c3b6bf61a254f!2s79+Ladipo+St,+Matori+100253,+Lagos!2m2!1d3.3458931!2d6.5380127!3m5!1s0x103b8d3622137e91:0xe86c3b6bf61a254f!8m2!3d6.5380127!4d3.3458931!16s%2Fg%2F11t7xz2bc4?entry=ttu">
             <p>79, Ladipo Street Matori-Mushin,

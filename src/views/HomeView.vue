@@ -273,7 +273,11 @@ export default {
           @apply w-1/2;
         }
         .images {
-          @apply grid grid-cols-2 grid-rows-2 grid-flow-dense w-full h-full gap-5;
+          @apply grid grid-cols-1 grid-flow-dense w-full h-full gap-5;
+
+          @screen md{
+            @apply grid-cols-2 grid-rows-2 
+          }
           img {
             @apply object-cover rounded-xl w-full;
             min-height: 250px;
