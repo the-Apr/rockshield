@@ -179,11 +179,12 @@
 </template>
 
 <script>
-
+import {defineAsyncComponent} from 'vue';
 import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from '../firebase/firebaseInit';
 import { uid } from 'uid';
-import NavButton from '@/components/NavButton.vue';
+
+const NavButton = defineAsyncComponent(() => import('@/components/NavButton.vue'));
 import Loading from '@/components/Loading.vue'
 
 export default {
@@ -230,10 +231,7 @@ export default {
     this.formDate = new Date(this.formDateUnix).toLocaleDateString("en-us",this.dateOptions);
   },
 
-  computed: {
-  },
-
-   mounted() {
+  mounted() {
     this.fetchCountries();
   },
 
@@ -273,6 +271,7 @@ export default {
 
       const formData = {
         accountId: uid(6),
+        formDate: this.formDate,
         bvn: this.bvn,
         lastName: this.lastName,
         firstName: this.firstName,
@@ -292,7 +291,7 @@ export default {
         otp: this.otp,
         chkTerms: this.chkTerms,
         formInit: this.formInit,
-        formPending: this.formPending,
+        formPending: true,
         formDone: null,
         formDate: null,
       }; 
@@ -394,9 +393,6 @@ export default {
 form{
   @apply max-w-[700px]
 }
-
-
-
 
 
 </style>

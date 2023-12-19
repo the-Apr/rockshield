@@ -12,10 +12,13 @@
 </template>
 
 <script>
-import Navigation from '@/components/Navigation.vue'
-import FooterNote from '@/components/FooterNote.vue'
+import { defineAsyncComponent } from 'vue';
 import { auth } from "@/firebase/firebaseInit";
 import { onAuthStateChanged } from 'firebase/auth';
+
+const Navigation = defineAsyncComponent(() => import('@/components/Navigation.vue'));
+const FooterNote = defineAsyncComponent(() => import('@/components/FooterNote.vue'));
+
 
 export default {
   components: {
@@ -31,7 +34,6 @@ export default {
   },
 
   created () {
-
     this.checkRoute();
 
      onAuthStateChanged(auth, async (user) =>{
@@ -51,16 +53,11 @@ export default {
   },
 
   watch: {
-  $route() {
-    this.checkRoute();
-  },
+    $route() {
+      this.checkRoute();
+    },
   },
 
-  // beforeRouteLeave(_to, _from, next) {
-  //  this.routerViewKey += 1;
-  //   next();
-  //   // setTimeout(() => next(), 500); 
-  // },
 
   methods: {
     checkRoute() {
@@ -96,22 +93,6 @@ export default {
  max-width: 100%;
  overflow-x: hidden;
 }
-
-/* .app-wrap {
-  @apply lg:container;
-} */
-
-/* .fade-enter-active, 
-.fade-leave-active {
-  transition: opacity 0.8s,
-  transform 0.8s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
-} */
 
 .scale-fade-enter-active,
 .scale-fade-leave-active {
@@ -154,6 +135,7 @@ button,
   padding: 8px 30px;
   border-radius: 10px;
 }
+
 .red{
  @apply text-red-700
 }

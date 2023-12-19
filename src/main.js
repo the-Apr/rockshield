@@ -1,13 +1,17 @@
-import { createApp } from 'vue'
+import { createApp, defineAsyncComponent } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import './assets/tailwind.css'
 import { auth } from "@/firebase/firebaseInit";
 import { onAuthStateChanged } from 'firebase/auth';
-import Modal from '@/components/Modal.vue';
-import Loading from '@/components/Loading.vue'
 
+// ui components
+const Modal = defineAsyncComponent(() => import('@/components/Modal.vue'));
+const Loading = defineAsyncComponent(() => import('@/components/Loading.vue'));
+const NavButton = defineAsyncComponent(() => import('@/components/NavButton.vue'));
+
+// font-awesome icons
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -24,6 +28,7 @@ app.use(router)
 app.component('fa-icon', FontAwesomeIcon);
 app.component('modal', Modal)
 app.component('loading', Loading)
+app.component('nav-button', NavButton)
 
 onAuthStateChanged(auth, () => {
   if (!app.mounted) {

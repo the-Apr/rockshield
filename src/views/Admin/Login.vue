@@ -14,7 +14,8 @@
         <div class="input">
           <input  :type="showPassword ? 'text' : 'password'" placeholder="Password" v-model="password">
           <fa-icon class="icon" :icon="['fas', 'lock']" />
-          <fa-icon @click="toggleShowPassword" class="eye-slash" :icon="['far', 'eye-slash']"  />
+          <fa-icon @click="toggleShowPassword" class="eye-slash" :icon="(showPassword ? ['far','eye'] : ['far','eye-slash'])" />
+
         </div>
         <div v-show="error" class="error red">{{this.errorMsg}}</div>
       </div>
@@ -36,14 +37,16 @@
 
 <script>
 import { auth } from '../../firebase/firebaseInit'
-import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from 'firebase/auth'
-import { mapMutations } from 'vuex'
+import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from 'firebase/auth'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Login',
 
   data() {
     return {
+      // windowWidth: null,
+      // isLargeScreen: false,
       email: "",
       password: "",
       error: null,
@@ -53,7 +56,22 @@ export default {
     }
   },
 
+  beforeCreate() {
+  // Set session persistence
+  setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+      // Auth state persistence set
+      console.log('persistence set');
+    })
+    .catch((error) => {
+      // Handle errors setting persistence
+      console.error("Error setting persistence:", error);
+    });
+  },
 
+  computed : {
+    ...mapState(['isAuthenticated'])
+  },
 
   methods: {
 
@@ -69,25 +87,17 @@ export default {
       this.loading = true;
       signInWithEmailAndPassword(auth, this.email, this.password)
       .then(() => {
-        // Set session persistence
-        setPersistence(auth, browserSessionPersistence)
-          .then(() => {
-            // Auth state persistence set
-            console.log('persistence set');
-            this.setAuthenticationStatus(true);
-            this.$router.push({ name: "account-list" });
-            this.error = false;
-            this.errorMsg = "";
-            // console.log(auth.currentUser.uid);
-          })
-          .catch((error) => {
-            // Handle errors setting persistence
-            console.error("Error setting persistence:", error);
-          })
-          .finally(() => {
-              // Set loading state back to false when the operation is complete
-              this.loading = false;
-            });
+      // Set session persistence
+        this.setAuthenticationStatus(true);
+        localStorage.setItem('isAuthenticated', 'true');
+        this.$router.push({ name: "account-list" });
+        this.error = false;
+        this.errorMsg = "";
+        // console.log(auth.currentUser.uid);
+      })
+      .finally(() => {
+        // Set loading state back to false when the operation is complete
+        this.loading = false;
       })
       .catch((err) => {
         this.error = true;

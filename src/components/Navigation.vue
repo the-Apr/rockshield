@@ -72,7 +72,10 @@
 </template>
 
 <script>
-import NavButton from '@/components/NavButton.vue'
+import { defineAsyncComponent } from 'vue';
+
+const NavButton = defineAsyncComponent(() => import('@/components/NavButton.vue'));
+
 
 export default {
   name: 'navigation',

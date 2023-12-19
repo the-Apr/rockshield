@@ -64,8 +64,11 @@
 </template>
 
 <script>
-import DrivesCard from '@/components/DrivesCard.vue'
-import MgtCard from '@/components/MgtCard.vue'
+import { defineAsyncComponent } from 'vue';
+
+const DrivesCard = defineAsyncComponent(() => import('@/components/DrivesCard.vue'));
+const MgtCard = defineAsyncComponent(() => import('@/components/MgtCard.vue'));
+
 
 export default {
   name: 'About',

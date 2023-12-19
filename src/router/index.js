@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import store from '../store'
 
 const routes = [
+
+  // home
   {
     path: '/',
     name: 'home',
@@ -11,14 +13,18 @@ const routes = [
       title: 'Home'
     }
   },
+
+  // About
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/About.vue'),
+    component: () => import( /* webpackChunkName: "about" */ '../views/About.vue'),
     meta: {
       title: 'About Us'
     }
   },
+
+  // create account
   {
     path: '/create-account',
     name: 'create-account',
@@ -27,6 +33,8 @@ const routes = [
       title: 'Create Account'
     }
   },
+
+  // admin-login
   {
     path: '/admin-login',
     name: 'admin-login',
@@ -35,6 +43,8 @@ const routes = [
       title: 'Login'
     }
   },
+
+  // admin-register
   {
     path: '/admin-register',
     name: 'admin-register',
@@ -43,6 +53,8 @@ const routes = [
       title: 'Register'
     }
   },
+
+  // account-list
   {
     path: '/account-list',
     name: 'account-list',
@@ -61,6 +73,8 @@ const routes = [
       }
     },
   },
+
+  // customer-form
   {
     path: '/customer-form/:accountId',
     name: 'customer-form',

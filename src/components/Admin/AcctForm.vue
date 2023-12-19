@@ -3,7 +3,7 @@
     <router-link class="invoice flex" :to="{ name: 'customer-form', params: {accountId: form.accountId} }">
       <div class="left flex">
         <span class="tracking-number">#{{form.accountId}}</span>
-        <span class="due-date">{{form.formDate}}</span>
+        <span class="form-date">{{form.formDate}}</span>
         <span class="person">{{ fullName }}</span>
       </div>
 

@@ -52,11 +52,15 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import { auth } from '@/firebase/firebaseInit';
 import { signOut } from 'firebase/auth';
-import AdminNav from '@/components/Admin/AdminNav.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
-import AcctForm from '@/components/Admin/AcctForm.vue'
+
+
+const AdminNav = defineAsyncComponent(() => import('@/components/Admin/AdminNav.vue'));
+const AcctForm = defineAsyncComponent(() => import('@/components/Admin/AcctForm.vue'));
+
 
 export default {
 	components: { AdminNav, AcctForm },

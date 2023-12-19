@@ -30,7 +30,10 @@
     </div>
 
     <!-- Customer Details -->
-    <div class="invoice-details flex flex-col">
+    <div class="details-wrap">
+      <div class="sect">
+        <h2>Personal Information</h2>
+      </div>
       <div class="form-details">
         <h2>Name</h2>
         <p>{{fullName}}</p>
@@ -39,7 +42,65 @@
         <h2>BVN</h2>
         <p>{{currentForm.bvn}}</p>
       </div>
+      <div class="form-details">
+        <h2>Email</h2>
+        <p>{{currentForm.email}}</p>
+      </div>
+      <div class="form-details">
+        <h2>Gender</h2>
+        <p>{{currentForm.gender}}</p>
+      </div>
+      <div class="form-details">
+        <h2>Occupation</h2>
+        <p>{{currentForm.occupation}}</p>
+      </div>
+      <div class="form-details">
+        <h2>Work Address</h2>
+        <p>{{currentForm.workAddress}}</p>
+      </div>
+      <div class="form-details">
+        <h2>Residential Address</h2>
+        <p>{{currentForm.resAddress}}</p>
+      </div>
+      <div class="form-details">
+        <h2>State of residence</h2>
+        <p>{{currentForm.resState}}</p>
+      </div>
       
+      <div class="form-details">
+        <h2>City of residence</h2>
+        <p>{{currentForm.resCity}}</p>
+      </div>
+      <div class="form-details">
+        <h2>Marital Status</h2>
+        <p>{{currentForm.maritalStatus}}</p>
+      </div>
+      <div class="form-details">
+        <h2>ID Type</h2>
+        <p>{{currentForm.idType}}</p>
+      </div>
+      <div class="form-details">
+        <h2>ID Number</h2>
+        <p>{{currentForm.idNum}}</p>
+      </div>
+
+      <!-- Nexk of Kin information -->
+      <div class="sect">
+        <h2>Next Of Kin Information</h2>
+      </div>
+      
+      <div class="form-details">
+        <h2>Name</h2>
+        <p>{{currentForm.nokfullName}}</p>
+      </div>
+      <div class="form-details">
+        <h2>Phone Number</h2>
+        <p>{{currentForm.nokPhoneNum}}</p>
+      </div>
+      <div class="form-details">
+        <h2>Address</h2>
+        <p>{{currentForm.nokAddress}}</p>
+      </div>
     </div>
   </div>
 </div>  
@@ -142,8 +203,17 @@ export default {
     }
   }
 
-  .invoice-details {
-    @apply p-12 mt-6;
+  .details-wrap {
+    @apply p-12 mt-6 flex flex-col;
+
+    .form-details {
+      @apply flex flex-row justify-between mb-3;
+      border-bottom: 1px solid lightskyblue;
+    }
+
+    .sect {
+      @apply bg-[#00ABF1] text-white text-left px-6 py-3
+    }
   }
 }
 </style>
