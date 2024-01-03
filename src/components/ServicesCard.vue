@@ -120,7 +120,7 @@ export default {
       
 
       @screen md {
-        @apply ml-4 gap-6;
+        @apply  gap-6;
       }
 
       @screen lg{

@@ -93,10 +93,10 @@
 <script>
 import { defineAsyncComponent } from 'vue';
 
-const ServicesCard = defineAsyncComponent(() => import('@/components/ServiceCard.vue'));
+const ServicesCard = defineAsyncComponent(() => import('@/components/ServicesCard.vue'));
 const OurTestimonies = defineAsyncComponent(() => import('@/components/OurTestimonies.vue'));
 
-import NavButton from '@/components/NavButton.vue'
+import NavButton from '@/components/BaseButton.vue'
 
 export default {
   name: 'HomeView',

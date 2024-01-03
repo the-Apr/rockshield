@@ -7,9 +7,10 @@ import { auth } from "@/firebase/firebaseInit";
 import { onAuthStateChanged } from 'firebase/auth';
 
 // ui components
-const Modal = defineAsyncComponent(() => import('@/components/Modal.vue'));
-const Loading = defineAsyncComponent(() => import('@/components/Loading.vue'));
-const NavButton = defineAsyncComponent(() => import('@/components/NavButton.vue'));
+const Modal = defineAsyncComponent(() => import('@/components/BaseModal.vue'));
+const Loading = defineAsyncComponent(() => import('@/components/BaseLoading.vue'));
+const Spinner = defineAsyncComponent(() => import('@/components/Loading.vue'));
+const NavButton = defineAsyncComponent(() => import('@/components/BaseButton.vue'));
 
 // font-awesome icons
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -28,6 +29,7 @@ app.use(router)
 app.component('fa-icon', FontAwesomeIcon);
 app.component('modal', Modal)
 app.component('loading', Loading)
+app.component('spinner', Spinner)
 app.component('nav-button', NavButton)
 
 onAuthStateChanged(auth, () => {

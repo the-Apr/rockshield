@@ -74,7 +74,7 @@
 <script>
 import { defineAsyncComponent } from 'vue';
 
-const NavButton = defineAsyncComponent(() => import('@/components/NavButton.vue'));
+const NavButton = defineAsyncComponent(() => import('@/components/BaseButton.vue'));
 
 
 export default {

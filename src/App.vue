@@ -1,13 +1,26 @@
 <template>
 <div class="app">
-  <navigation v-if="!hideNav"/>
-  <transition name="scale-fade" mode="out-in" >
-    <div v-if="showContent" class="app-wrap">
-     <router-view />
-    </div>
-  </transition>
+  <!-- <suspense>
+    <template #default>
+      <div>
+      <navigation v-if="!hideNav"/>
+      <transition name="scale-fade" mode="out-in" >
+        <div v-if="showContent" class="app-wrap">
+        <router-view />
+        </div>
+      </transition>
 
-  <footer-note v-if="!hideNav"/>
+      <footer-note v-if="!hideNav"/>
+      </div>
+    </template>
+
+    <template #fallback>
+      <loading/>
+      
+    </template>
+  </suspense> -->
+   <spinner/>
+  
 </div>
 </template>
 

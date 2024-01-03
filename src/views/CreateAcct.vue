@@ -184,8 +184,8 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from '../firebase/firebaseInit';
 import { uid } from 'uid';
 
-const NavButton = defineAsyncComponent(() => import('@/components/NavButton.vue'));
-import Loading from '@/components/Loading.vue'
+const NavButton = defineAsyncComponent(() => import('@/components/BaseButton.vue'));
+import Loading from '@/components/BaseLoading.vue'
 
 export default {
 
