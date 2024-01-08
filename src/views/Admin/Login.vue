@@ -83,27 +83,53 @@ export default {
 
   
 
-    signIn() {
-      this.loading = true;
-      signInWithEmailAndPassword(auth, this.email, this.password)
-      .then(() => {
-      // Set session persistence
+    // signIn() {
+    //   this.loading = true;
+    //   signInWithEmailAndPassword(auth, this.email, this.password)
+    //   .then(() => {
+    //   // Set session persistence
+    //     this.setAuthenticationStatus(true);
+    //     localStorage.setItem('isAuthenticated', 'true');
+    //     this.$router.push({ name: "account-list" });
+    //     this.error = false;
+    //     this.errorMsg = "";
+    //     // console.log(auth.currentUser.uid);
+    //   })
+    //   .finally(() => {
+    //     // Set loading state back to false when the operation is complete
+    //     this.loading = false;
+    //   })
+    //   .catch((err) => {
+    //     this.error = true;
+    //     this.errorMsg = err.message;
+    //   });
+    // },
+
+    async signIn() {
+      try {
+        this.loading = true;
+
+        await signInWithEmailAndPassword(auth, this.email, this.password);
+
+        // The code here will execute after the signInWithEmailAndPassword promise resolves
+
+        // Set session persistence
         this.setAuthenticationStatus(true);
         localStorage.setItem('isAuthenticated', 'true');
         this.$router.push({ name: "account-list" });
         this.error = false;
         this.errorMsg = "";
         // console.log(auth.currentUser.uid);
-      })
-      .finally(() => {
-        // Set loading state back to false when the operation is complete
-        this.loading = false;
-      })
-      .catch((err) => {
+      } catch (err) {
+        // The code here will execute if signInWithEmailAndPassword encounters an error
         this.error = true;
         this.errorMsg = err.message;
-      });
+      } finally {
+        // The code here will execute regardless of whether signInWithEmailAndPassword succeeds or encounters an error
+        this.loading = false;
+      }
     },
+
 
   }
 }

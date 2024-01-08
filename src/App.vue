@@ -1,6 +1,7 @@
 <template>
 <div class="app">
-  <!-- <suspense>
+  <spinner v-if="!showContent"/>
+  <suspense>
     <template #default>
       <div>
       <navigation v-if="!hideNav"/>
@@ -15,11 +16,12 @@
     </template>
 
     <template #fallback>
-      <loading/>
+      <!-- <loading/> -->
+      <spinner/>
       
     </template>
-  </suspense> -->
-   <spinner/>
+  </suspense>
+   
   
 </div>
 </template>
@@ -62,7 +64,9 @@ export default {
   },
 
   mounted() {
-    this.showContent = true;
+    setTimeout(() => {
+      this.showContent = true;
+    }, 1000);
   },
 
   watch: {

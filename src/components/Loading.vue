@@ -1,7 +1,7 @@
 <template>
 <div class="wrap">
   <div class="loading-bar">
-    <img class="animate-ping" src="../assets/rs-fotor-bg-remover-20230704114329.png" alt="" srcset="">
+    <img class="" src="../assets/rs-fotor-bg-remover-20230704114329.png" alt="" srcset="">
   </div>
   </div>
 </template>
@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .wrap{
   top: 0;
   z-index: 101;
